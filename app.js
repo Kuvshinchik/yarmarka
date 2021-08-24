@@ -1,6 +1,24 @@
+//Этот проект предназначен для накрутки трафика на сайте Ярмарка мастеров.
+//Робот заходит на Пинтерест и оттуда переходит по ссылке на Ярмарку мастеров.
+//Второй робот заходит напрямую на Ярмарку мастеров и через поисковый запрос находит нужный товар и переходит на него.
 //require('./proba_05.js');
 //require('./scenarii/user_modules/vhod_prosto.js');
 //require('./files/ipPort/createZiip.js');
+
+/**/
+const { exec } = require("child_process");
+
+exec("git clone https://github.com/Kuvshinchik/yarmarka.git", (error, stdout, stderr) => {
+    if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+    console.log(`stdout: ${stdout}`);
+});
 
 
 
@@ -137,22 +155,7 @@ try {
 
 
 
-/*
-const { exec } = require("child_process");
 
-exec("git clone https://github.com/Kuvshinchik/maison_marine.git", (error, stdout, stderr) => {
-    if (error) {
-        console.log(`error: ${error.message}`);
-        return;
-    }
-    if (stderr) {
-        console.log(`stderr: ${stderr}`);
-        return;
-    }
-    console.log(`stdout: ${stdout}`);
-});
-
-*/
 
 /*
 const { spawn } = require("child_process");

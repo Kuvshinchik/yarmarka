@@ -1,11 +1,9 @@
 //Этот проект предназначен для накрутки трафика на сайте Ярмарка мастеров.
 //Робот заходит на Пинтерест и оттуда переходит по ссылке на Ярмарку мастеров.
 //Второй робот заходит напрямую на Ярмарку мастеров и через поисковый запрос находит нужный товар и переходит на него.
-//require('./proba_05.js');
-//require('./scenarii/user_modules/vhod_prosto.js');
-//require('./files/ipPort/createZiip.js');
 
-/**/
+
+/*
 const { exec } = require("child_process");
 
 exec("git clone https://github.com/Kuvshinchik/yarmarka.git", (error, stdout, stderr) => {
@@ -19,21 +17,29 @@ exec("git clone https://github.com/Kuvshinchik/yarmarka.git", (error, stdout, st
     }
     console.log(`stdout: ${stdout}`);
 });
+*/
 
 
-
-
-/*
-
-
-let trevoga_00 = require('./scenarii/user_modules/function/trevoga_00.js');
-let end = 88;
-let start = 78;
+const path = require('path');
+const fs = require("fs");
+let pahtParametrCikl = path.join(__dirname.replace("\\yarmarka", '').replace("/yarmarka", ''));
+pahtParametrCikl = `${pahtParametrCikl}/parametr/1.txt`;
+let massivParametrCikl = fs.readFileSync(pahtParametrCikl, 'utf8').trim().split(':::');
+let start = massivParametrCikl[0];
+let end = massivParametrCikl[1];
+let numberAccauntForpublic = massivParametrCikl[2]; //этот параметр и ниже параметр - это откуда берем адреса Пинов
+let papkaForpublic = massivParametrCikl[3];
+let variantApp = +massivParametrCikl[4];
 let startToday = 52;
+/**/
+
+
+async function YarmarkaPoisk (start, end) {
+let trevoga_00 = require('./scenarii/user_modules/function/trevoga_00.js');
 //let adressIpPort = 'C:/copy/node/pinterest/files/ipPort/00/00.csv';
 //let massivIpPort = fs.readFileSync(adressIpPort, 'utf8').trim().split('\n');
 let driver;
-(async () => {
+
     for (let i = start; i <= end; i++) {
         console.log(i);
         const scenarii_00 = await require('./scenarii/scenarii_00.js');
@@ -62,45 +68,16 @@ let driver;
               await trevoga_00.DeleteTarget('C:/Users/Администратор/AppData/Local/Temp/', 'chrome_BITS_');
             } catch (error) { console.log(error) }
           }
-    
-    
-         
     }
-
-})();
-
-*/
-
-/*
-*/
+}
 
 
-(async () => {
-   //let scenarii_00 = require('https://github.com/Kuvshinchik/maison_marine/blob/main/scenarii_00.js');
+/**/
+
+async function YarmarkaPinterest (start, end, numberAccauntForpublic, papkaForpublic) {
  let scenarii_00 = require('./scenarii/scenarii_00.js');
   let trevoga_00 = await require('./scenarii/user_modules/function/trevoga_00.js');
 
-  //let driver;
-  //let number_accaunt = 11;    
-
-
-
-  //driver = await scenarii_00.firstPosting(11, 7);
-
-  //driver = await scenarii_00.deleteDirtyPinFromDesk(number_accaunt);
-
-
-  //(await driver).close();
-
-
-  //driver = await scenarii_00.repostDirtyClean(number_accaunt, 25);
-  let end = 0;
-  let start = 0;
-  let startToday = 66;
-  let numberAccauntForpublic = 6; //этот параметр и ниже параметр - это откуда берем адреса Пинов
-  let papkaForpublic = 2;
-  //let adressIpPort = 'C:/copy/node/pinterest/files/ipPort/00/00.csv';
-  //let massivIpPort = fs.readFileSync(adressIpPort, 'utf8').trim().split('\n');
   for (let i = start; i <= end; i++) {
     
     let y = i + (new Date).getDay();
@@ -151,29 +128,22 @@ try {
     } catch (error) { console.log(error) }
     }
   }
-})();
+};
 
 
-
-
-
-/*
-const { spawn } = require("child_process");
-
-const ls = spawn("git clone https://github.com/Kuvshinchik/maison_marine.git");
-
-ls.stdout.on("data", data => {
-    console.log(`stdout: ${data}`);
-});
-
-ls.stderr.on("data", data => {
-    console.log(`stderr: ${data}`);
-});
-
-ls.on('error', (error) => {
-    console.log(`error: ${error.message}`);
-});
-
-ls.on("close", code => {
-    console.log(`child process exited with code ${code}`);
-});*/
+switch(variantApp) {    
+	case 1:
+    YarmarkaPoisk (start, end);
+	break;	
+	case 2:
+    YarmarkaPinterest (start, end, numberAccauntForpublic, papkaForpublic);
+	break;
+  case 3:
+//require('./proba_05.js');
+require('./scenarii/user_modules/vhod_prosto.js');
+//require('./files/ipPort/createZiip.js');
+	break;	
+	default:
+    //trevoga_01()
+	break;
+}

@@ -34,52 +34,56 @@ let startToday = 52;
 /**/
 
 
-async function YarmarkaPoisk (start, end) {
-let trevoga_00 = require('./scenarii/user_modules/function/trevoga_00.js');
-//let adressIpPort = 'C:/copy/node/pinterest/files/ipPort/00/00.csv';
-//let massivIpPort = fs.readFileSync(adressIpPort, 'utf8').trim().split('\n');
-let driver;
+async function YarmarkaPoisk(start, end) {
+  let trevoga_00 = require('./scenarii/user_modules/function/trevoga_00.js');
+  //let adressIpPort = 'C:/copy/node/pinterest/files/ipPort/00/00.csv';
+  //let massivIpPort = fs.readFileSync(adressIpPort, 'utf8').trim().split('\n');
+  let driver;
 
-    for (let i = start; i <= end; i++) {
-        console.log(i);
-        const scenarii_00 = await require('./scenarii/scenarii_00.js');
-        driver = await scenarii_00.YarmarkaWithPoisk(i);
+  for (let i = start; i <= end; i++) {
+    console.log(i);
+    const scenarii_00 = await require('./scenarii/scenarii_00.js');
+    driver = await scenarii_00.YarmarkaWithPoisk(i);
 
-    
-        if (i != end) {
-            (await driver).close();
-            await trevoga_00.sleep(5000);
-          } else {
-            await trevoga_00.final(driver);
-            await driver.quit();
-            await trevoga_00.sleep(5000);
-            try {
-              await trevoga_00.DeleteTarget('C:/Users/11/AppData/Local/Temp/', 'scoped_');
-            } catch (error) { console.log(error) }
-        
-            try {                       
-              await trevoga_00.DeleteTarget('C:/Users/Администратор/AppData/Local/Temp/', 'scoped_');
-            } catch (error) { console.log(error) }
-            try {
-              await trevoga_00.DeleteTarget('C:/Users/11/AppData/Local/Temp/', 'chrome_BITS_');
-            } catch (error) { console.log(error) }
-        
-            try {                       
-              await trevoga_00.DeleteTarget('C:/Users/Администратор/AppData/Local/Temp/', 'chrome_BITS_');
-            } catch (error) { console.log(error) }
-          }
+
+    if (i != end) {
+      try {
+        (await driver).close();
+      } catch (error) { console.log(error) }
+      await trevoga_00.sleep(5000);
+    } else {
+      await trevoga_00.final(driver);
+      await driver.quit();
+      await trevoga_00.sleep(5000);
+
+      try {
+        await trevoga_00.DeleteTarget('C:/Users/11/AppData/Local/Temp/', 'scoped_');
+      } catch (error) { console.log(error) }
+
+      try {
+        await trevoga_00.DeleteTarget('C:/Users/Администратор/AppData/Local/Temp/', 'scoped_');
+      } catch (error) { console.log(error) }
+      try {
+        await trevoga_00.DeleteTarget('C:/Users/11/AppData/Local/Temp/', 'chrome_BITS_');
+      } catch (error) { console.log(error) }
+
+      try {
+        await trevoga_00.DeleteTarget('C:/Users/Администратор/AppData/Local/Temp/', 'chrome_BITS_');
+      } catch (error) { console.log(error) }
+
     }
+  }
 }
 
 
 /**/
 
-async function YarmarkaPinterest (start, end, numberAccauntForpublic, papkaForpublic) {
- let scenarii_00 = require('./scenarii/scenarii_00.js');
+async function YarmarkaPinterest(start, end, numberAccauntForpublic, papkaForpublic) {
+  let scenarii_00 = require('./scenarii/scenarii_00.js');
   let trevoga_00 = await require('./scenarii/user_modules/function/trevoga_00.js');
 
   for (let i = start; i <= end; i++) {
-    
+
     let y = i + (new Date).getDay();
     y = y % 118;
     let text_00 = i + ' - номер ПИНА из таблицы ' + y;
@@ -89,61 +93,63 @@ async function YarmarkaPinterest (start, end, numberAccauntForpublic, papkaForpu
     let originalWindow2 = await driver.getWindowHandle();
     await trevoga_00.sleep(10000);
     if (i != end) {
-//на случай потери фокуса еще раз вычисляем ID окна
+      //на случай потери фокуса еще раз вычисляем ID окна
       if (!!originalWindow2) {
         await driver.switchTo().window(originalWindow2);
-    } else {
+      } else {
         await trevoga_00.sleep(5000);
         newWindows = await driver.getAllWindowHandles();
         await newWindows.forEach(handle => { if (handle !== originalWindow2) { temp_02 = handle } });
         if (!!temp_02) {
-            await driver.switchTo().window(temp_02);
+          await driver.switchTo().window(temp_02);
         } else { console.log('Программа не смогла переопредилить окно!') };
         console.log('Пришлось переопределять оставшееся окно, проблему могу объяснить только отсутствием изоляции, если подтвердится нужно писать TRY!')
-    };
-//и потом закрываем 
-try {
-      (await driver).close();
-       } catch (error) { console.log(error) }
+      };
+      //и потом закрываем 
+      try {
+        (await driver).close();
+      } catch (error) { console.log(error) }
 
       await trevoga_00.sleep(5000);
     } else {
       await trevoga_00.final(driver);
       await driver.quit();
       await trevoga_00.sleep(5000);
-    
-      try {
-      await trevoga_00.DeleteTarget('C:/Users/11/AppData/Local/Temp/', 'scoped_');
-    } catch (error) { console.log(error) }
+     // if ((__dirname.indexOf('c:') != -1) || (__dirname.indexOf('d:') != -1)) {
+      if (__dirname.indexOf('\:') != -1) {
+        try {
+          await trevoga_00.DeleteTarget('C:/Users/11/AppData/Local/Temp/', 'scoped_');
+        } catch (error) { console.log(error) }
 
-    try {                       
-      await trevoga_00.DeleteTarget('C:/Users/Администратор/AppData/Local/Temp/', 'scoped_');
-    } catch (error) { console.log(error) }
-    try {
-      await trevoga_00.DeleteTarget('C:/Users/11/AppData/Local/Temp/', 'chrome_BITS_');
-    } catch (error) { console.log(error) }
+        try {
+          await trevoga_00.DeleteTarget('C:/Users/Администратор/AppData/Local/Temp/', 'scoped_');
+        } catch (error) { console.log(error) }
+        try {
+          await trevoga_00.DeleteTarget('C:/Users/11/AppData/Local/Temp/', 'chrome_BITS_');
+        } catch (error) { console.log(error) }
 
-    try {                       
-      await trevoga_00.DeleteTarget('C:/Users/Администратор/AppData/Local/Temp/', 'chrome_BITS_');
-    } catch (error) { console.log(error) }
+        try {
+          await trevoga_00.DeleteTarget('C:/Users/Администратор/AppData/Local/Temp/', 'chrome_BITS_');
+        } catch (error) { console.log(error) }
+      }
     }
   }
 };
 
 
-switch(variantApp) {    
-	case 1:
-    YarmarkaPoisk (start, end);
-	break;	
-	case 2:
-    YarmarkaPinterest (start, end, numberAccauntForpublic, papkaForpublic);
-	break;
+switch (variantApp) {
+  case 1:
+    YarmarkaPoisk(start, end);
+    break;
+  case 2:
+    YarmarkaPinterest(start, end, numberAccauntForpublic, papkaForpublic);
+    break;
   case 3:
-//require('./proba_05.js');
-require('./scenarii/user_modules/vhod_prosto.js');
-//require('./files/ipPort/createZiip.js');
-	break;	
-	default:
+    //require('./proba_05.js');
+    require('./scenarii/user_modules/vhod_prosto.js');
+    //require('./files/ipPort/createZiip.js');
+    break;
+  default:
     //trevoga_01()
-	break;
+    break;
 }

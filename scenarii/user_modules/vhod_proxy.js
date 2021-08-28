@@ -12,7 +12,7 @@ async function vhodWithZip(numberInKatalog) {
         let adressZiip = path.join(__dirname.replace("\\scenarii\\user_modules", '').replace("/scenarii/user_modules", ''), `files/ipPort/${numberInKatalog}/proxy_auth.zip`);        
         options.setPageLoadStrategy(PageLoadStrategy.NONE); //РАБОТАЕТ!!!!
         //options.setChromeOptions();
-        options.addArguments(`useAutomationExtension=False`, `disable-blink-features=AutomationControlled`, `window-size=850,750`, `window-position=10,10`);
+        options.addArguments(`useAutomationExtension=False`, `disable-blink-features=AutomationControlled`, `window-size=850,1500`, `window-position=10,10`);
        // options.addArguments(`useAutomationExtension=False`, `disable-blink-features=AutomationControlled`);
         function encode(file) {
             var stream = fs.readFileSync(file);
@@ -29,11 +29,13 @@ async function vhodWithZip(numberInKatalog) {
             .build();
 
         await trevoga_00.sleep(5000);
+        originalWindow = await driver.getWindowHandle();
         await trevoga_00.clickLocationNone(driver);
        // await driver.get('https://browserleaks.com/geo');
         //await trevoga_00.final(driver);
-        //await trevoga_00.trevoga(driver);    
-        return driver;
+        //await trevoga_00.trevoga(driver);
+        let massivForReturn = [driver, originalWindow];   
+        return massivForReturn;
     } catch (error) { console.log(error) }
 
 }

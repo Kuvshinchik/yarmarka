@@ -8,7 +8,11 @@ async function YarmarkaWithPoisk(numberInKatalog) {
         const yarmarkaPoisk = await require("./user_modules/yarmarkaPoisk.js");
         const vhod_proxy = await require("./user_modules/vhod_proxy.js");
 
-        let driver = await vhod_proxy.vhodWithZip(numberInKatalog);
+        //let driver = await vhod_proxy.vhodWithZip(numberInKatalog);
+        let massivForReturn = await vhod_proxy.vhodWithZip(numberInKatalog);
+        let driver = massivForReturn[0];
+        //let originalWindow = massivForReturn[1];
+
         await trevoga_00.sleep(5000);
         await driver.get('https://2ip.ru/');
         await trevoga_00.sleep(5000);
@@ -17,7 +21,7 @@ async function YarmarkaWithPoisk(numberInKatalog) {
         let findElements_massiv = await driver.findElements(By.css("[id=\"main-message\"] h1")); //проверяем есть ли подключение к Интернету
         if (!findElements_massiv.length) {
             await yarmarkaPoisk.yarmarkaPoisk(driver);
-            await trevoga_00.sleep(5000);            
+            await trevoga_00.sleep(5000);
             return driver;
 
         } else {
@@ -42,7 +46,9 @@ async function nakrutkaYarmarkaWithPinterest(numberInKatalog, jMin, jMax, number
         const pinterestYarmarka01 = await require("./user_modules/pinterestYarmarka01.js");
         const vhod_proxy = await require("./user_modules/vhod_proxy.js");
 
-        let driver = await vhod_proxy.vhodWithZip(numberInKatalog);
+        let massivForReturn = await vhod_proxy.vhodWithZip(numberInKatalog);
+        let driver = massivForReturn[0];
+        let originalWindow = massivForReturn[1];
         await trevoga_00.sleep(5000);
         await driver.get('https://2ip.ru/');
         await trevoga_00.sleep(5000);
@@ -68,8 +74,9 @@ async function nakrutkaYarmarkaWithPinterest(numberInKatalog, jMin, jMax, number
             handle = await newWindows[0];
             await driver.switchTo().window(handle)
             await trevoga_00.sleep(5000);*/
-            return driver;
-
+            //return driver;
+            let massivForReturn = [driver, originalWindow];
+            return massivForReturn;
         } else {
             console.log('Нет подключения к Интернету')
             return driver;

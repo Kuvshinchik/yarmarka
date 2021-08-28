@@ -98,6 +98,7 @@ async function nakrutkaYarmarka(driver, jMin, jMax, adressPinNakrutka, numberAcc
                                     .perform();
 
                                 await trevoga_00.sleep(5000);
+                                (await driver).close();
                                 newWindows = await driver.getAllWindowHandles();
                                 await newWindows.forEach(handle => { if (handle !== originalWindow) { temp_02 = handle } });
 
@@ -166,34 +167,28 @@ async function nakrutkaYarmarka(driver, jMin, jMax, adressPinNakrutka, numberAcc
                                 //await driver.executeScript(`window.close()`);
                                 await trevoga_00.sleep(5000);
 
+                                /*
+                                                                //проверить этот абзац если не поможет УДАЛИТЬ
+                                                                newWindows = await driver.getAllWindowHandles();
+                                                                await newWindows.forEach(handle => { if (handle !== originalWindow) { temp_02 = handle } });
+                                                                //проверить этот абзац если не поможет УДАЛИТЬ
                                 
-                                //проверить этот абзац если не поможет УДАЛИТЬ
-                                newWindows = await driver.getAllWindowHandles();
-                                await newWindows.forEach(handle => { if (handle !== originalWindow) { temp_02 = handle } });
-                                //проверить этот абзац если не поможет УДАЛИТЬ
+                                
+                                                                if (!!temp_02) {
+                                                                    await driver.switchTo().window(temp_02); //еще раз активируем второе окно, на случай ошибки прежде чем его закрыть
+                                                                    (await driver).close();
+                                                                    await trevoga_00.sleep(2000);
+                                                                } else { console.log('Проблема со вторым окном, которое где-то потерялось!') };
                                 
                                 
-                                if (!!temp_02) {
-                                    await driver.switchTo().window(temp_02); //еще раз активируем второе окно, на случай ошибки прежде чем его закрыть
-                                    (await driver).close();
-                                    await trevoga_00.sleep(2000);
-                                } else { console.log('Проблема со вторым окном, которое где-то потерялось!') };
-
-
-                                await trevoga_00.sleep(2000);
-
+                                                                await trevoga_00.sleep(2000);
+                               
 
                                 if (!!originalWindow) {
                                     await driver.switchTo().window(originalWindow);
                                 } else {
                                     await trevoga_00.sleep(5000);
                                     console.log('Не нашел оригинальную вкладку, обратить внимание - сколько вкладок открыто!')
-                                    /*  newWindows = await driver.getAllWindowHandles();
-                                      await newWindows.forEach(handle => { if (handle !== originalWindow) { temp_02 = handle } });
-                                      if (!!temp_02) {
-                                          await driver.switchTo().window(temp_02);
-                                      } else { console.log('Программа не смогла переопредилить окно!') };
-                                      console.log('Пришлось переопределять оставшееся окно, проблему могу объяснить только отсутствием изоляции, если подтвердится нужно писать TRY!')*/
                                 };
 
                                 findElements_massiv = await driver.findElements(By.css("[data-test-id=\"full-page-signup-close-button\"] button"));  // ПРИ протягивании это форма вылезает с предложением войти или зарегистрироваться
@@ -202,7 +197,7 @@ async function nakrutkaYarmarka(driver, jMin, jMax, adressPinNakrutka, numberAcc
                                     postYarmarka = await findElements_massiv[0];
                                     await postYarmarka.click();
                                     console.log('выскочила форма SIGN, мы ее кликнули');
-                                }
+                                } */
                                 //} else { console.log('либо не перешел во вторую вкладку, либо Ярмарка чудит') }
 
                             } else { console.log('Пинтерест заменил ссылку, ссылка не моя') }

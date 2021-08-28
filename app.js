@@ -93,6 +93,7 @@ async function YarmarkaPinterest(start, end, numberAccauntForpublic, papkaForpub
      
       };*/
     //2021_08_28 выше закомментировал блок, строка ниже продублирована из закомментированного блока, нужно удалить строку и блок if при возврате через неделю удалить
+    originalWindow = await driver.getAllWindowHandles();
     if (i != end) {
       if (!!!originalWindow) {
         //driver.switchTo().window(originalWindow);

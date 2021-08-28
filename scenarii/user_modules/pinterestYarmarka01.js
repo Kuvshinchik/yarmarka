@@ -145,57 +145,66 @@ async function nakrutkaYarmarka(driver, jMin, jMax, adressPinNakrutka, numberAcc
                                 await postYarmarka.click();
                                 await trevoga_00.sleep(5000);*/
 
-                                
-                                
+
+
                                 let countBrod = await trevoga_00.randomInteger(1, 5);
                                 for (let brod = 1; brod <= countBrod; brod++) {
-                                     await trevoga_00.sleep(5000);
+                                    await trevoga_00.sleep(5000);
                                     findElements_massiv = await driver.findElements(By.css("a.item-preview__image-container")); //после того как зашли в категория, проверяем есть ли товары
                                     await trevoga_00.sleep(5000);
-                                if ((!!findElements_massiv.length) && (findElements_massiv[0].isDisplayed())) {
-                                    //console.log(1111111)
-                                    randomTovarMax = await findElements_massiv.length - 1;
-                                    randomTovar = await trevoga_00.randomInteger(0, randomTovarMax)
-                                    //  рандомно генерируем номер отображенных товаров на Ярмарке, чтобы перейти по нему 
-                                    let postYarmarka = await findElements_massiv[randomTovar];
-                                    await driver.executeScript("arguments[0].scrollIntoView()", postYarmarka); //протянули к элементу postYarmarka
-                                    await postYarmarka.click();
-                                    await trevoga_00.sleep(5000);
-                                } else { console.log('Из категорий зашли в товары, но товаров нет!!!!') };
-                                }
-                                    //await driver.executeScript(`window.close()`);
-                                    if (!!temp_02) {
-                                        await driver.switchTo().window(temp_02); //еще раз активируем второе окно, на случай ошибки прежде чем его закрыть
-                                        (await driver).close();
-                                        await trevoga_00.sleep(2000);
-                                    } else { console.log('Проблема со вторым окном, которое где-то потерялось!') };
-
-
-                                    await trevoga_00.sleep(2000);
-
-
-                                    if (!!originalWindow) {
-                                        await driver.switchTo().window(originalWindow);
-                                    } else {
-                                        await trevoga_00.sleep(5000);
-                                        console.log('Не нашел оригинальную вкладку, обратить внимание - сколько вкладок открыто!')
-                                      /*  newWindows = await driver.getAllWindowHandles();
-                                        await newWindows.forEach(handle => { if (handle !== originalWindow) { temp_02 = handle } });
-                                        if (!!temp_02) {
-                                            await driver.switchTo().window(temp_02);
-                                        } else { console.log('Программа не смогла переопредилить окно!') };
-                                        console.log('Пришлось переопределять оставшееся окно, проблему могу объяснить только отсутствием изоляции, если подтвердится нужно писать TRY!')*/
-                                    };
-
-                                    findElements_massiv = await driver.findElements(By.css("[data-test-id=\"full-page-signup-close-button\"] button"));  // ПРИ протягивании это форма вылезает с предложением войти или зарегистрироваться
-                                    await trevoga_00.sleep(1000);
-                                    if (!!findElements_massiv.length) {
-                                        postYarmarka = await findElements_massiv[0];
+                                    if ((!!findElements_massiv.length) && (findElements_massiv[0].isDisplayed())) {
+                                        //console.log(1111111)
+                                        randomTovarMax = await findElements_massiv.length - 1;
+                                        randomTovar = await trevoga_00.randomInteger(0, randomTovarMax)
+                                        //  рандомно генерируем номер отображенных товаров на Ярмарке, чтобы перейти по нему 
+                                        let postYarmarka = await findElements_massiv[randomTovar];
+                                        await driver.executeScript("arguments[0].scrollIntoView()", postYarmarka); //протянули к элементу postYarmarka
                                         await postYarmarka.click();
-                                        console.log('выскочила форма SIGN, мы ее кликнули');
-                                    }
-                                    //} else { console.log('либо не перешел во вторую вкладку, либо Ярмарка чудит') }
+                                        await trevoga_00.sleep(5000);
+                                    } else { console.log('Из категорий зашли в товары, но товаров нет!!!!') };
+                                }
+                                //await driver.executeScript(`window.close()`);
+                                await trevoga_00.sleep(5000);
+
                                 
+                                //проверить этот абзац если не поможет УДАЛИТЬ
+                                newWindows = await driver.getAllWindowHandles();
+                                await newWindows.forEach(handle => { if (handle !== originalWindow) { temp_02 = handle } });
+                                //проверить этот абзац если не поможет УДАЛИТЬ
+                                
+                                
+                                if (!!temp_02) {
+                                    await driver.switchTo().window(temp_02); //еще раз активируем второе окно, на случай ошибки прежде чем его закрыть
+                                    (await driver).close();
+                                    await trevoga_00.sleep(2000);
+                                } else { console.log('Проблема со вторым окном, которое где-то потерялось!') };
+
+
+                                await trevoga_00.sleep(2000);
+
+
+                                if (!!originalWindow) {
+                                    await driver.switchTo().window(originalWindow);
+                                } else {
+                                    await trevoga_00.sleep(5000);
+                                    console.log('Не нашел оригинальную вкладку, обратить внимание - сколько вкладок открыто!')
+                                    /*  newWindows = await driver.getAllWindowHandles();
+                                      await newWindows.forEach(handle => { if (handle !== originalWindow) { temp_02 = handle } });
+                                      if (!!temp_02) {
+                                          await driver.switchTo().window(temp_02);
+                                      } else { console.log('Программа не смогла переопредилить окно!') };
+                                      console.log('Пришлось переопределять оставшееся окно, проблему могу объяснить только отсутствием изоляции, если подтвердится нужно писать TRY!')*/
+                                };
+
+                                findElements_massiv = await driver.findElements(By.css("[data-test-id=\"full-page-signup-close-button\"] button"));  // ПРИ протягивании это форма вылезает с предложением войти или зарегистрироваться
+                                await trevoga_00.sleep(1000);
+                                if (!!findElements_massiv.length) {
+                                    postYarmarka = await findElements_massiv[0];
+                                    await postYarmarka.click();
+                                    console.log('выскочила форма SIGN, мы ее кликнули');
+                                }
+                                //} else { console.log('либо не перешел во вторую вкладку, либо Ярмарка чудит') }
+
                             } else { console.log('Пинтерест заменил ссылку, ссылка не моя') }
                         } else { console.log('навел мышь на Пин, но не обнаружил кнопку со ссылкой перехода на Ярмарку') }
                     } else { console.log(hrefJury + ' - это левый Пин'); }

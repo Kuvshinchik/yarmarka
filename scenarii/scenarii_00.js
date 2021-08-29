@@ -39,7 +39,7 @@ module.exports.YarmarkaWithPoisk = YarmarkaWithPoisk;
 //это сценарий накрутки на Ярмарку через Пинтерест и ВКонтакте
 
 async function nakrutkaYarmarkaWithPinterest(numberInKatalog, jMin, jMax, numberAccauntForpublic, papkaForpublic) {
-    try {
+    //try {
         const path = require('path');
         const { Builder, By, Key, until } = require('selenium-webdriver');
         let trevoga_00 = await require('./user_modules/function/trevoga_00.js');
@@ -47,8 +47,8 @@ async function nakrutkaYarmarkaWithPinterest(numberInKatalog, jMin, jMax, number
         const vhod_proxy = await require("./user_modules/vhod_proxy.js");
 
         let massivForReturn = await vhod_proxy.vhodWithZip(numberInKatalog);
-        let driver = massivForReturn[0];
-        let originalWindow = massivForReturn[1];
+        driver = massivForReturn[0];
+        originalWindow = massivForReturn[1];
         await trevoga_00.sleep(5000);
         await driver.get('https://2ip.ru/');
         await trevoga_00.sleep(5000);
@@ -75,7 +75,7 @@ async function nakrutkaYarmarkaWithPinterest(numberInKatalog, jMin, jMax, number
             await driver.switchTo().window(handle)
             await trevoga_00.sleep(5000);*/
             //return driver;
-            let massivForReturn = [driver, originalWindow];
+            massivForReturn = [driver, originalWindow];
             return massivForReturn;
         } else {
             console.log('Нет подключения к Интернету')
@@ -84,6 +84,6 @@ async function nakrutkaYarmarkaWithPinterest(numberInKatalog, jMin, jMax, number
 
         //await pinterestYarmarka01.nakrutkaYarmarka(driver, jMin, jMax, 'C:/copy/node/pinterest/files/katalog/2/6.csv');
 
-    } catch (error) { console.log(error) }
+ //   } catch (error) { console.log(error) }
 }
 module.exports.nakrutkaYarmarkaWithPinterest = nakrutkaYarmarkaWithPinterest;

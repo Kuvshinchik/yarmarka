@@ -34,7 +34,7 @@ async function YarmarkaPoisk(start, end) {
       }
       await trevoga_00.sleep(5000);
     } else {
-      await trevoga_00.final(driver);
+      //await trevoga_00.final(driver);
       await driver.quit();
       await trevoga_00.sleep(5000);
 
@@ -62,7 +62,7 @@ async function YarmarkaPoisk(start, end) {
 async function YarmarkaPinterest(start, end, numberAccauntForpublic, papkaForpublic) {
   let scenarii_00 = require('./scenarii/scenarii_00.js');
   let trevoga_00 = await require('./scenarii/user_modules/function/trevoga_00.js');
-
+  let originalWindow, driver;
   for (let i = start; i <= end; i++) {
 
     let y = i + (new Date).getDay();
@@ -70,41 +70,26 @@ async function YarmarkaPinterest(start, end, numberAccauntForpublic, papkaForpub
     let text_00 = i + ' - номер ПИНА из таблицы ' + y;
     //console.log(`\x1b[1;31m ${text_00}\x1b[0m\n`)
     console.log(text_00);
-    let originalWindow;
+
 
     let massivForReturn = await scenarii_00.nakrutkaYarmarkaWithPinterest(i, y, y, numberAccauntForpublic, papkaForpublic);
-    let driver = massivForReturn[0];
-    originalWindow = massivForReturn[1];
-    /*  let originalWindow2 = await driver.getWindowHandle();
-    await trevoga_00.sleep(10000);
-    if (i != end) {
-      //на случай потери фокуса еще раз вычисляем ID окна
-      if (!!originalWindow2) {
-        await driver.switchTo().window(originalWindow2);
-      } else {
-      await trevoga_00.sleep(5000);
-        newWindows = await driver.getAllWindowHandles();
-        await newWindows.forEach(handle => { if (handle !== originalWindow2) { temp_02 = handle } });
-        if (!!temp_02) {
-          await driver.switchTo().window(temp_02);
-        } else { console.log('Программа не смогла переопредилить окно!') };
-        console.log('Пришлось переопределять оставшееся окно, проблему могу объяснить только отсутствием изоляции, если подтвердится нужно писать TRY!')
-      
-     
-      };*/
-    //2021_08_28 выше закомментировал блок, строка ниже продублирована из закомментированного блока, нужно удалить строку и блок if при возврате через неделю удалить
+    driver = massivForReturn[0];
+    //originalWindow = massivForReturn[1];
+
     originalWindow = await driver.getAllWindowHandles();
+    await driver.switchTo().window(originalWindow[0]);
+
     if (i != end) {
-      if (!!!originalWindow) {
-        //driver.switchTo().window(originalWindow);
-        try {
-          await driver.executeScript("window.close()");
-          console.log("app-файл, потерял фокус закрываем окно через js-сценарий");
-        } catch (error) {
-          console.log("app-файл, потерял фокус js-сценарий окно не смог закрыть, сработал catch");
-          console.log(error)
-        }
-      }
+      /*  if (!!!originalWindow) {
+          //driver.switchTo().window(originalWindow);
+          try {
+            await driver.executeScript("window.close()");
+            console.log("app-файл, потерял фокус закрываем окно через js-сценарий");
+          } catch (error) {
+            console.log("app-файл, потерял фокус js-сценарий окно не смог закрыть, сработал catch");
+            console.log(error)
+          }
+        }*/
 
       try {
         (await driver).close();
@@ -115,10 +100,10 @@ async function YarmarkaPinterest(start, end, numberAccauntForpublic, papkaForpub
 
       await trevoga_00.sleep(5000);
     } else {
-      await trevoga_00.final(driver);
+      //await trevoga_00.final(driver);
       await driver.quit();
       await trevoga_00.sleep(5000);
-      // if ((__dirname.indexOf('c:') != -1) || (__dirname.indexOf('d:') != -1)) {
+
       if (__dirname.indexOf('\:') != -1) {
         try {
           await trevoga_00.DeleteTarget('C:/Users/11/AppData/Local/Temp/', 'scoped_');

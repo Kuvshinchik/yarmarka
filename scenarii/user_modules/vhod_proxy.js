@@ -1,4 +1,4 @@
-let driver;
+//let driver;
 
 async function vhodWithZip(numberInKatalog) {
     try {

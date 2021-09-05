@@ -9,25 +9,25 @@ async function vhodWithZip(numberInKatalog) {
         const chrome = require('selenium-webdriver/chrome');
         const options = new chrome.Options();
         const { PageLoadStrategy } = require("selenium-webdriver/lib/capabilities");
-        let adressZiip = path.join(__dirname.replace("\\scenarii\\user_modules", '').replace("/scenarii/user_modules", ''), `files/ipPort/${numberInKatalog}/proxy_auth.zip`);        
+        let adressZiip = path.join(__dirname.replace("\\yarmarka\\scenarii\\user_modules", '').replace("/yarmarka/scenarii/user_modules", ''), `files/ipPort/${numberInKatalog}/proxy_auth.zip`);        
         options.setPageLoadStrategy(PageLoadStrategy.NONE); //РАБОТАЕТ!!!!
         //options.setChromeOptions();
-        options.addArguments(`useAutomationExtension=False`, `disable-blink-features=AutomationControlled`, `window-size=850,1500`, `window-position=10,10`);
-       // options.addArguments(`useAutomationExtension=False`, `disable-blink-features=AutomationControlled`);
+        //, `disable-search-geolocation-disclosure['',=True,=2,=1]` -- НЕ Работает, аналогично с , `disable-geolocation=False`
+        options.addArguments(`useAutomationExtension=False`, `disable-blink-features=AutomationControlled`, `window-size=1150,1350`, `window-position=10,10`);
         function encode(file) {
             var stream = fs.readFileSync(file);
             return new Buffer.from(stream).toString('base64');
         }
 
         options.addExtensions(encode(adressZiip));
-        let parrentAdress = path.join(__dirname.replace("\\scenarii\\user_modules", '').replace("/scenarii/user_modules", ''));
+        let parrentAdress = path.join(__dirname.replace("\\yarmarka\\scenarii\\user_modules", '').replace("/yarmarka/scenarii/user_modules", ''));
         options.addExtensions(encode(`${parrentAdress}/files/webrtc-control-master.zip`));
 
         driver = await new Builder()
             .forBrowser('chrome')
             .setChromeOptions(options)
             .build();
-
+//console.log(options);
         await trevoga_00.sleep(5000);
         originalWindow = await driver.getWindowHandle();
         await trevoga_00.clickLocationNone(driver);

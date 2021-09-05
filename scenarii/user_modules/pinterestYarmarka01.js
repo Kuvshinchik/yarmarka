@@ -54,7 +54,7 @@ async function nakrutkaYarmarka(driver, jMin, jMax, adressPinNakrutka, numberAcc
 
 
                 let number_accaunt = numberAccauntForpublic; //номер аккаунта  
-                let fileName_json = './files/json/' + number_accaunt + '.json';
+                let fileName_json = '../files/json/' + number_accaunt + '.json';
                 let files_text = fs.readFileSync(fileName_json, 'utf8');
                 files_text = JSON.parse(files_text);
                 let hrefJuryTemp = hrefJury.replace('com', 'ru');

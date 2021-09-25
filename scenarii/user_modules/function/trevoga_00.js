@@ -157,20 +157,35 @@ return files_text;
 };
  module.exports.ObjectMakeFromJison = ObjectMakeFromJison;
  
+ 
 async function clickLocationNone(driver) {
     //const trevoga_00 = require("./function/trevoga_00");
     await driver.navigate().to("chrome://settings/content/location");
     sleep(3000);
     await driver.actions({ bridge: true })
         //.move({ x: 979, y: 159 })
-        .move({ x: 470, y: 160 })
+        .move({ x: 500, y: 350 })
         .pause(1000)
         .press()
         .release()
         .perform();
-    sleep(2000);
+    sleep(3000);
+
+await driver.navigate().to("chrome://settings/content/idleDetection");
+    sleep(3000);
+    await driver.actions({ bridge: true })
+        //.move({ x: 979, y: 159 })
+        .move({ x: 500, y: 330 })
+        .pause(1000)
+        .press()
+        .release()
+        .perform();
+    sleep(3000);
+
+
 };
 module.exports.clickLocationNone = clickLocationNone;
+
 
 
 function DeleteTarget(folder, target) {

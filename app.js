@@ -15,7 +15,7 @@ let variantApp = +massivParametrCikl[4];
 
 async function YarmarkaPoisk(start, end) {
   let trevoga_00 = require('./scenarii/user_modules/function/trevoga_00.js');
-  //let adressIpPort = 'C:/copy/node/pinterest/files/ipPort/00/00.csv';
+  //let adressIpPort = 'C:/copy/node/files/ipPort/00/00.csv';
   //let massivIpPort = fs.readFileSync(adressIpPort, 'utf8').trim().split('\n');
   let driver;
 
@@ -135,8 +135,8 @@ switch (variantApp) {
   case 3:
     //require('./proba_05.js');
     //require('./scenarii/user_modules/vhod_prosto.js');
-    // require('./scenarii/user_modules/vhod_withoptions.js');
-   require('./files/ipPort/createZiip.js');
+   require('./scenarii/user_modules/vhod_withoptions.js');
+    // require('./files/ipPort/createZiip.js');
     break;
   default:
     require('./scenarii/user_modules/vhod_prosto.js');

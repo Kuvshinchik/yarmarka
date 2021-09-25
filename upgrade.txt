@@ -1,0 +1,23 @@
+cd C:\copy\node\yarmarka;git status;git add .;git commit -m "Version 1.0";git push origin 
+
+
+cd C:\copy\node\yarmarka
+
+git status
+
+git add .
+
+git commit -m "Version 1.0"
+
+git push origin 
+
+Kuvshinchik
+ѕароль - Kuvshinchik_013
+
+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
+
+https
+git clone https://github.com/Kuvshinchik/yarmarka.git
+
+ssh
+git clone git@github.com:Kuvshinchik/yarmarka.git
